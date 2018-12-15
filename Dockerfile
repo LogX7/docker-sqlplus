@@ -1,4 +1,4 @@
-FROM ubuntu
+FROM ubuntu:16.04
 
 RUN apt-get -y update \
  && apt-get -y install libaio1 unzip rlwrap \
@@ -18,6 +18,9 @@ RUN unzip /opt/instantclient-basic-linux.x64-${VERSION}.zip \
  && mv -v /opt/instantclient* /opt/instantclient
 
 COPY login.sql /opt/instantclient
+
+RUN mkdir /opt/sql_files
+VOLUME /opt/sql_files
 
 COPY entrypoint.sh /
 ENTRYPOINT ["/entrypoint.sh"]
